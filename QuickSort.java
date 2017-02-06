@@ -7,15 +7,18 @@ import lab1.ArrayBag;
 public class QuickSort {
 
 	public static void main(String[] args) {
-		ArrayBag<Integer> a1 = new ArrayBag<>(1000);
-		ArrayBag<Integer> a2 = new ArrayBag<>(1000);
+		ArrayBag<Integer> a1 = new ArrayBag<>(10);
+		ArrayBag<Integer> a2 = new ArrayBag<>(10);
 
 		Random r = new Random();
-		int[] array =new int[1000];
+		int[] array =new int[10];
 		System.out.println("random integers: ");
 		for(int i = 0; i < array.length; i++) {
 			array[i] = r.nextInt(500);
 			a1.add(array[i]);
+		}
+		for(int i = 0; i < array.length; i++) {
+			System.out.println(array[i]);
 		}
 		System.out.println("quickSortByIteration: ");
 		quickSortByIteration(array);
@@ -29,13 +32,16 @@ public class QuickSort {
 			}
 		}
 		System.out.println(a1.equals(a2));
+		for(int i = 0; i < array.length; i++) {
+			System.out.println(array[i]);
+		}
 	}
 	
 	public static void quickSortByIteration(int[] array) {
 		
 		int indexOfPivot = partition(array, 0, array.length - 1);
-		sort (array, 0, indexOfPivot);
-		sort (array, indexOfPivot + 1, array.length - 1);
+		//sort (array, 0, indexOfPivot);
+		//sort (array, indexOfPivot + 1, array.length - 1);
 		
 	}
 	
@@ -59,36 +65,42 @@ public class QuickSort {
 		int pivot = array[firstIndex];
 		if((lastIndex - firstIndex) > 0) {
 			while(true) {
-				System.out.println("left: " + left + " right : " + right + " pivot: " + pivot);
-				System.out.println("left value: " + array[left] + " right value: " + array[right]);
-				while(array[left] < pivot) {
+				while(array[left] < pivot && left < lastIndex) {
 					left++;
-					if(left >= lastIndex) {
-						left--;
-						break;
-					}
 				}
 				while(right > firstIndex && array[right] > pivot) {
 					right--;
-					if(right < firstIndex) {
-						right++;
-						break;
-					}
+
 				}
+				System.out.println(left + "   " +right);
 				if((array[left] >= pivot) && (array[right] <= pivot) && right > left) {
 					int temp = array[left];
 					array[left] = array[right];
 					array[right] = temp;
+					System.out.println(left + "   " +right);
 					if(array[left] == array[right])
 						left++;
 				}
 				if((right - left) <= 0) {
-					int temp = array[right];
-					array[right] = array[indexOfPivot];
-					array[indexOfPivot] = temp;
+					for(int i = 0; i < array.length; i++) {
+						if(i == right) {
+							System.out.println(array[i]+ " <-----pivot");
+							continue;
+						}
+						System.out.println(array[i]);
+					}
+					System.out.println();
+	
 					break;
 				}
 			}//end while
+		}
+		for(int i = 0; i < array.length; i++) {
+			if(i == right) {
+				System.out.println(array[i]+ " <-----pivot");
+				continue;
+			}
+			System.out.println(array[i]);
 		}
 		return right;
 	}

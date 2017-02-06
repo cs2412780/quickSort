@@ -7,11 +7,11 @@ import lab1.ArrayBag;
 public class QuickSort {
 
 	public static void main(String[] args) {
-		ArrayBag<Integer> a1 = new ArrayBag<>(10);
-		ArrayBag<Integer> a2 = new ArrayBag<>(10);
+		ArrayBag<Integer> a1 = new ArrayBag<>(1000);
+		ArrayBag<Integer> a2 = new ArrayBag<>(1000);
 
 		Random r = new Random();
-		int[] array =new int[10];
+		int[] array =new int[1000];
 		System.out.println("random integers: ");
 		for(int i = 0; i < array.length; i++) {
 			array[i] = r.nextInt(500);
@@ -32,43 +32,10 @@ public class QuickSort {
 	}
 	
 	public static void quickSortByIteration(int[] array) {
-		int left = 1;
-		int right = array.length - 1;
-		int pivot = array[0];
-		while(true) {
-			while(array[left] < pivot) {
-				left++;
-				if(left >= array.length) {
-					left--;
-					break;
-				}
-				
-			}
-			while(right > 0 && array[right] > pivot) {
-				right--;
-				if(right < 0) {
-					right++;
-					break;
-				}
-			}
-			if((array[left] >= pivot) && (array[right] <= pivot) && right > left) {
-				
-				int temp = array[left];
-				array[left] = array[right];
-				array[right] = temp;
-				if(array[left] == array[right])
-					left++;
-			}
-			if((right - left) <= 0) {
-				int temp = array[right];
-				array[right] = array[0];
-				array[0] = temp;
-				break;
-			}
-			
-		}//end while
-		sort (array, 0, right);
-		sort (array, right + 1, array.length - 1);
+		
+		int indexOfPivot = partition(array, 0, array.length - 1);
+		sort (array, 0, indexOfPivot);
+		sort (array, indexOfPivot + 1, array.length - 1);
 		
 	}
 	
@@ -83,5 +50,73 @@ public class QuickSort {
 			}//end while
 		}//end for
 	}//end sort
+	
+	
+	private static int partition(int[] array, int firstIndex, int lastIndex) {
+		int left = firstIndex;
+		int right = lastIndex;
+		int indexOfPivot = firstIndex;
+		int pivot = array[firstIndex];
+		if((lastIndex - firstIndex) > 0) {
+			while(true) {
+				System.out.println("left: " + left + " right : " + right + " pivot: " + pivot);
+				System.out.println("left value: " + array[left] + " right value: " + array[right]);
+				while(array[left] < pivot) {
+					left++;
+					if(left >= lastIndex) {
+						left--;
+						break;
+					}
+				}
+				while(right > firstIndex && array[right] > pivot) {
+					right--;
+					if(right < firstIndex) {
+						right++;
+						break;
+					}
+				}
+				if((array[left] >= pivot) && (array[right] <= pivot) && right > left) {
+					int temp = array[left];
+					array[left] = array[right];
+					array[right] = temp;
+					if(array[left] == array[right])
+						left++;
+				}
+				if((right - left) <= 0) {
+					int temp = array[right];
+					array[right] = array[indexOfPivot];
+					array[indexOfPivot] = temp;
+					break;
+				}
+			}//end while
+		}
+		return right;
+	}
+	
+	public static void quickSortByRecursion(int[] array) {
+
+		doQuickSort(array, 0, array.length - 1);
+		}
+
+		private static void doQuickSort(int[] array, int firstIndex, int lastIndex) {
+		if(lastIndex > firstIndex) {
+			System.out.println(firstIndex + "   " +lastIndex);
+			int indexOfPivot = partition(array, firstIndex, lastIndex);
+			
+			System.out.println("indexOfPivot: "+indexOfPivot + "  array[indexOfPivot] : "+ array[indexOfPivot]);
+			for(int i = 0; i < array.length; i++) {
+				if(i == indexOfPivot) {
+					System.out.println(array[i]+ " <-----pivot");
+					continue;
+				}
+				System.out.println(array[i]);
+			}
+			System.exit(0);
+			doQuickSort(array, firstIndex, indexOfPivot);
+			doQuickSort(array, indexOfPivot + 1, lastIndex);
+		}
+			
+
+		}
 
 }

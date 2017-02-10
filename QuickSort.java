@@ -54,6 +54,11 @@ public class QuickSort {
 
 	}
 	
+	
+	/**
+	 * a function that uses iterative quick sort to sort an array.
+	 * @param array the target array
+	 */
 	public static void quickSortByIteration(int[] array) {
 		
 		LinkedDataStack<Integer> stack = new LinkedDataStack<>();
@@ -98,44 +103,56 @@ public class QuickSort {
 				stack.push(leftPointer);
 			}
 		}
-	}
+	}// end quickSortByIteration
 	
 	
+	
+	/**
+	 * a function that uses recursive quick sort to sort an array.
+	 * @param array the target array
+	 */
 	public static void quickSortByRecursion(int[] array) {
 
 		doQuickSort(array, 0, array.length - 1);
-	}
+	}// end quickSortByRecursion
 
-		private static void doQuickSort(int[] array, int firstIndex, int lastIndex) {
-			int left = firstIndex;
-			int right = lastIndex;
-			int pivot = array[(firstIndex + lastIndex) / 2];
-			while(right >= left) {
-				while(array[left] < pivot) {
-					left++;
-				}
-				while(array[right] > pivot) {
-					right--;
-				}
+	
+	/**
+	 * a function that uses recursive quick sort to sort an array.
+	 * @param array the target array
+	 * @param firstIndex the lower bound
+	 * @param lastIndex the upper pound
+	 */
+	private static void doQuickSort(int[] array, int firstIndex, int lastIndex) {
+		int left = firstIndex;
+		int right = lastIndex;
+		int pivot = array[(firstIndex + lastIndex) / 2];
+		while(right >= left) {
+			while(array[left] < pivot) {
+				left++;
+			}
+			while(array[right] > pivot) {
+				right--;
+			}
 				
-				if(right >= left) {
-					int temp = array[left];
-					array[left] = array[right];
-					array[right] = temp;
-					left++;
-					right--;
-				}
-			
-			}
-			
-			if(left < lastIndex) {
-				doQuickSort(array, left, lastIndex);
-			}
-			
-			if(right > firstIndex) {
-				doQuickSort(array, firstIndex, right);
+			if(right >= left) {
+				int temp = array[left];
+				array[left] = array[right];
+				array[right] = temp;
+				left++;
+				right--;
 			}
 			
 		}
+			
+		if(left < lastIndex) {
+			doQuickSort(array, left, lastIndex);
+		}
+			
+		if(right > firstIndex) {
+			doQuickSort(array, firstIndex, right);
+		}
+			
+	}// end doQuickSort
 			
 }

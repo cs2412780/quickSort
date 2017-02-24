@@ -1,59 +1,10 @@
 package quickSort;
 
-import java.util.Random;
 
 import homework2.LinkedDataStack;
-import lab1.ArrayBag;
 
 
 public class QuickSort {
-
-	public static void main(String[] args) {
-		ArrayBag<Integer> a1 = new ArrayBag<>(100000);
-		ArrayBag<Integer> a2 = new ArrayBag<>(100000);
-
-		Random r = new Random();
-		int[] array =new int[100000];
-		
-		for(int i = 0; i < array.length; i++) {
-			array[i] = r.nextInt(500);
-			a1.add(array[i]);
-		}
-
-		System.out.println("quickSortByIteration: ");
-		quickSortByIteration(array);
-		for(int i = 0; i < array.length; i++) {
-			a2.add(array[i]);
-			//System.out.println(array[i]);
-		}
-		
-		
-
-		System.out.println("done\n");
-
-		a1.clear();
-		a2.clear();
-		for(int i = 0; i < array.length; i++) {
-			array[i] = r.nextInt(500);
-			a1.add(array[i]);
-		}
-		System.out.println("quickSortByRecursion: ");
-		
-		quickSortByRecursion(array);
-
-		for(int i = 0; i < array.length; i++) {
-			a2.add(array[i]);
-		}
-		for(int i = 0; i < array.length - 1; i++) {
-			if(array[i] > array[i + 1]) {
-				System.out.println("*****Failed");
-				break;
-			}
-		}
-		System.out.println("done");
-
-	}
-	
 	
 	/**
 	 * a function that uses iterative quick sort to sort an array.
@@ -91,29 +42,32 @@ public class QuickSort {
 					leftPointer++;
 					rightPointer--;
 				}
-			
+
 			}
 			if(rightPointer > left) {
 				stack.push(rightPointer);
 				stack.push(left);
 			}
+
 			
 			if(right > leftPointer) {
 				stack.push(right);
 				stack.push(leftPointer);
 			}
+
 		}
 	}// end quickSortByIteration
-	
 	
 	
 	/**
 	 * a function that uses recursive quick sort to sort an array.
 	 * @param array the target array
+	 * @param firstIndex The index of the first unsorted element.
+	 * @param lastIndex The index of the last unsorted element.
 	 */
-	public static void quickSortByRecursion(int[] array) {
+	public static void quickSortByRecursion(int[] array, int firstIndex, int lastIndex) {
 
-		doQuickSort(array, 0, array.length - 1);
+		doQuickSort(array, firstIndex, lastIndex);
 	}// end quickSortByRecursion
 
 	

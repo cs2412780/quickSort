@@ -10,12 +10,15 @@ public class QuickSort {
 	 * a function that uses iterative quick sort to sort an array.
 	 * @param array the target array
 	 */
-	public static void quickSortByIteration(int[] array) {
+	public static void quickSortByIteration(int[] array, int firstIndex, int lastIndex) {
 		
+		if(firstIndex > lastIndex) {
+			return;
+		}
 		LinkedDataStack<Integer> stack = new LinkedDataStack<>();
 		stack.push(-1);
-		stack.push(array.length - 1);
-		stack.push(0);
+		stack.push(lastIndex);
+		stack.push(firstIndex);
 		int left;
 		int right;
 		int leftPointer;
@@ -66,8 +69,10 @@ public class QuickSort {
 	 * @param lastIndex The index of the last unsorted element.
 	 */
 	public static void quickSortByRecursion(int[] array, int firstIndex, int lastIndex) {
-
-		doQuickSort(array, firstIndex, lastIndex);
+		
+		if(firstIndex <= lastIndex) {
+			doQuickSort(array, firstIndex, lastIndex);
+		}
 	}// end quickSortByRecursion
 
 	
